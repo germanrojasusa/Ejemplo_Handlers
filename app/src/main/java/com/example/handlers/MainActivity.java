@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
             int conteo = msg.getData().getInt("conteo");
             String name = msg.getData().getString("nombre");
-
+            Log.i(null, "Entramos" + String.valueOf(conteo));
             progressBar.setProgress(conteo+1);
             textView.setText(String.valueOf(progressBar.getProgress()) +"%");
 
@@ -68,12 +69,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                Bundle dato = new Bundle();
-                Message message = c1.obtainMessage();
-
                 for (int i = 0; i<100; i++){
+                    Bundle dato = new Bundle();
+                    Message message = c1.obtainMessage();
                     Thread.sleep(200);
-                    dato.putInt("conteo",i);
                     dato.putString("nombre", "Un dato tipo String");
                     message.setData(dato);
                     c1.sendMessage(message);
